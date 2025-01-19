@@ -28,15 +28,24 @@ module Bundles
         produces [ "application/vnd.api+json" ]
         consumes [ "application/vnd.api+json" ]
       end
+      params do
+        optional :filter, type: Hash
+        optional :page, type: Hash do
+          optional :number, type: String
+        end
+      end
       get do
         allowed = [ :title ]
 
         filtered = jsonapi_filter(Bundle.all, allowed)
         bundles = jsonapi_paginate(filtered.result)
 
+        links = jsonapi_pagination(bundles)
+        links[:self] = request.base_url + CGI.unescape(request.fullpath)
+
         render bundles.to_a, {
           meta: { pagination: jsonapi_pagination_meta(bundles) },
-          links: jsonapi_pagination(bundles)
+          links:
         }
       end
 
