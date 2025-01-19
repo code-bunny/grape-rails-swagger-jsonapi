@@ -1,27 +1,10 @@
 module V2
   module Bundles
     class API < Grape::API
-      helpers JSONAPI::Pagination, JSONAPI::Filtering
-
-      Error = Struct.new(:id)
-
-      version "v2", using: :path, vendor: "codebunnies"
-
       content_type :jsonapi, "application/vnd.api+json"
       formatter :json, Grape::Formatter::Jsonapi
       formatter :jsonapi, Grape::Formatter::Jsonapi
       format :jsonapi
-
-      rescue_from ActiveRecord::RecordNotFound do
-        error!({
-          errors: [
-            {
-              status: "404",
-              title: "Resource Not Found"
-            }
-          ]
-        }, 404)
-      end
 
       resources :bundles do
         desc "All Bundles" do
@@ -36,6 +19,7 @@ module V2
           end
         end
         get do
+          puts "v2"
           allowed = [ :title ]
 
           filtered = jsonapi_filter(Bundle.all, allowed)
