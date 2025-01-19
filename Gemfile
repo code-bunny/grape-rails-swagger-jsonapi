@@ -74,3 +74,7 @@ gem "grape-swagger", "~> 2.1"
 
 
 gem "rswag-ui", "~> 2.16"
+
+gem "jsonapi.rb", "~> 2.1"
+
+gem "ransack", "~> 4.2"

@@ -1,5 +1,7 @@
 module Bundles
   class API < Grape::API
+    helpers JSONAPI::Pagination, JSONAPI::Filtering
+
     Error = Struct.new(:id)
 
     version "v1", using: :accept_version_header, vendor: "codebunnies"
@@ -27,7 +29,15 @@ module Bundles
         consumes [ "application/vnd.api+json" ]
       end
       get do
-        render Bundle.all.to_a
+        allowed = [:title]
+
+        filtered = jsonapi_filter(Bundle.all, allowed)
+        bundles = jsonapi_paginate(filtered.result)
+
+        render bundles, {
+          meta: { pagination: jsonapi_pagination_meta(bundles) },
+          links: jsonapi_pagination(bundles)
+        }
       end
 
       desc "Create a Bundle" do
