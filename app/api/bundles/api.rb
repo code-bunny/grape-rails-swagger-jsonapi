@@ -13,10 +13,10 @@ module Bundles
 
     rescue_from ActiveRecord::RecordNotFound do
       error!({
-        "errors": [
+        errors: [
           {
-            "status": "404",
-            "title": "Resource Not Found"
+            status: "404",
+            title: "Resource Not Found"
           }
         ]
       }, 404)
