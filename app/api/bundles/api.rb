@@ -80,6 +80,7 @@ module Bundles
         delete do
           bundle = Bundle.find(params[:id])
           bundle.delete
+
           nil
         end
       end
