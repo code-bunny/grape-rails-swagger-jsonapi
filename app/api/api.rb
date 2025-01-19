@@ -7,7 +7,7 @@ module API
     mount Bundles::API
     add_swagger_documentation(
       info: {
-        title: "Grape Test.",
+        title: "Grape Test."
       }
     )
   end
