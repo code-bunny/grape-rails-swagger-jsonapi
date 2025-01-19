@@ -1,6 +1,6 @@
 module Bundles
   class API < Grape::API
-    version "v1", using: :header, vendor: "codebunnies"
+    version "v1", using: :accept_version_header, vendor: "codebunnies"
 
     content_type :jsonapi, "application/vnd.api+json"
     formatter :json, Grape::Formatter::Jsonapi
@@ -10,6 +10,8 @@ module Bundles
     resources :bundles do
       desc "All Bundles" do
         success BundleSerializer
+        produces [ "application/vnd.api+json" ]
+        consumes [ "application/vnd.api+json" ]
       end
       get do
         render Bundle.all.to_a
@@ -17,6 +19,8 @@ module Bundles
 
       desc "Create a Bundle" do
         success BundleSerializer
+        produces [ "application/vnd.api+json" ]
+        consumes [ "application/vnd.api+json" ]
       end
       params do
         requires :data, type: Hash do
@@ -26,7 +30,7 @@ module Bundles
         end
       end
       post do
-        bundle = Bundle.new(declared(params))
+        bundle = Bundle.new(declared(params)[:data][:attributes])
 
         if bundle.save
           render bundle
@@ -39,6 +43,8 @@ module Bundles
       route_param :id do
         desc "Find a Bundle by :id" do
           success BundleSerializer
+          produces [ "application/vnd.api+json" ]
+          consumes [ "application/vnd.api+json" ]
         end
         get do
           render Bundle.find(params[:id])
@@ -46,6 +52,8 @@ module Bundles
 
         desc "Update a Bundle" do
           success BundleSerializer
+          produces [ "application/vnd.api+json" ]
+          consumes [ "application/vnd.api+json" ]
         end
         params do
           requires :data, type: Hash do
@@ -57,7 +65,7 @@ module Bundles
         patch do
           bundle = Bundle.find(params[:id])
 
-          if bundle.update(declared(params))
+          if bundle.update(declared(params)[:data][:attributes])
             render bundle
           else
             status 422
@@ -66,11 +74,13 @@ module Bundles
         end
 
         desc "Delete a Bundle" do
-          success code: 204, model: BundleSerializer, message: "Delete a Bundle"
+          produces [ "application/vnd.api+json" ]
+          consumes [ "application/vnd.api+json" ]
         end
         delete do
           bundle = Bundle.find(params[:id])
           bundle.delete
+          nil
         end
       end
     end
