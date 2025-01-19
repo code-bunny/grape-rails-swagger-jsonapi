@@ -1,11 +1,24 @@
 module Bundles
   class API < Grape::API
+    Error = Struct.new(:id)
+
     version "v1", using: :accept_version_header, vendor: "codebunnies"
 
     content_type :jsonapi, "application/vnd.api+json"
     formatter :json, Grape::Formatter::Jsonapi
     formatter :jsonapi, Grape::Formatter::Jsonapi
     format :jsonapi
+
+    rescue_from ActiveRecord::RecordNotFound do
+      error!({
+        "errors": [
+          {
+            "status": "404",
+            "title": "Resource Not Found"
+          }
+        ]
+      }, 404)
+    end
 
     resources :bundles do
       desc "All Bundles" do
