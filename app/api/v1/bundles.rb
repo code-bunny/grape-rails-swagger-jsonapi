@@ -106,15 +106,6 @@ module V1
 
             nil
           end
-          resources :relationships do
-            desc "Relationships for a Bundle" do
-              success BundleSerializer
-              produces [ "application/vnd.api+json" ]
-              consumes [ "application/vnd.api+json" ]
-            end
-            get do
-            end
-          end
         end
       end
     end

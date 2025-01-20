@@ -100,6 +100,7 @@ module V2
 
             nil
           end
+
           resources :relationships do
             desc "Relationships for a Bundle" do
               success BundleSerializer
