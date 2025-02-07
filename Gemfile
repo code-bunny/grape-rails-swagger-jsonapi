@@ -77,4 +77,4 @@ gem "rswag-ui", "~> 2.16"
 
 gem "jsonapi.rb", "~> 2.1"
 
-gem "ransack", "~> 4.2"
+gem "ransack", "~> 4.3"

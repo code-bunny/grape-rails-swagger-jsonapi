@@ -143,7 +143,7 @@ GEM
     grape-swagger (2.1.2)
       grape (>= 1.7, < 3.0)
       rack-test (~> 2)
-    i18n (1.14.6)
+    i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
@@ -272,7 +272,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    ransack (4.2.1)
+    ransack (4.3.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
@@ -414,7 +414,7 @@ DEPENDENCIES
   kamal
   puma (>= 5.0)
   rails (~> 8.0.1)
-  ransack (~> 4.2)
+  ransack (~> 4.3)
   rswag-ui (~> 2.16)
   rubocop-rails-omakase
   selenium-webdriver
