@@ -64,7 +64,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "grape", "~> 2.2"
+gem "grape", "~> 2.3"
 
 gem "grape-jsonapi", "~> 1.0", require: "grape_jsonapi"
 
